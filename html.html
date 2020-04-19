@@ -1,0 +1,60 @@
+<HTML>
+    <HEAD>
+        <script>
+            function asdf() {
+                var style = document.createElement('style');
+                style.innerHTML = `
+                claim {
+                    -webkit-box-decoration-break: clone;
+                    box-decoration-break: clone;
+                    border-radius: .4em;
+                    padding-left: .15em;
+                    padding-right: .15em;
+                    padding-top: .05em;
+                    padding-bottom: .05em;
+                    background: -webkit-gradient(linear, left top, right top, from(#fce3ec), to(#ffe8cc));
+                    background: linear-gradient(90deg, #fce3ec, #ffe8cc)
+                }
+                `;
+                document.head.appendChild(style);
+                
+                list = document.body.querySelectorAll('*:not(style):not(script)');
+    
+    for (var c=0; c<list.length; c++) {
+        node = list[c];
+        if (node.childNodes.length > 0) { // contains text
+            str = node.innerHTML;
+            node.innerHTML = "";
+            ext_str = "";
+            for (var i=0; i<str.length; i++) {
+                if (str[i] == "<" && (i < str.length - 1 && str[i + 1] != "a") && (i < str.length - 1 && str[i + 1] != "/")) break;
+                if (str[i] == ">" && (i >= 2 && str[i - 2] == "/")) {
+                    ext_str += str[i];
+                    break
+                }
+
+                ext_str += str[i];
+            }
+
+            str = str.substring(ext_str.length, str.length);
+
+            //console.log("(" + str + "," + ext_str + ")");
+            // console.log(ext_str)
+
+            new_html = '<claim>' + ext_str + '</claim>' + str
+            console.log(new_html)
+
+            node.innerHTML = new_html;
+        }
+    }
+            }
+        </script>
+    </HEAD>
+    <BODY onload="asdf()">
+        <DIV id="stupid"> SOMEDIVTEXT <a href="https://google.com">yoyoy</a> heyy
+            <div>
+                SOMEDIVTEXT2
+            </div>
+        </DIV>
+    </BODY>
+</HTML>

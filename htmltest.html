@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+span
+
+<p id="dummy">
+	Click the button to get the tag names of the body element's children.
+    <span>wow</span>
+</p>
+
+<p id="dummy">
+        Click the button to get the tag names of the body element's children.
+        <span>
+            wow
+            <span>wowzers</span>
+        </span>
+    </p>
+
+<button onclick="get_candidate_text()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var c = document.body.children;
+  c = document.getElementById("dummy").children;
+  var txt = "";
+  var i;
+  for (i = 0; i < c.length; i++) {
+    txt = txt + c[i].tagName + "<br>";
+  }
+
+  document.getElementById("demo").innerHTML = txt;
+}
+</script>
+
+<script>
+function count_maximum_depth(el) {
+    var ret = 0;
+    console.log(el);
+
+    var c = el.children;
+    for (var i=0; i<c.length; i++) {
+        ret = Math.max(count_maximum_depth(c[i]) + 1, ret);
+    }
+
+    return ret;
+}
+
+function get_candidate_text() {
+    document.getElementById("demo").innerHTML = count_maximum_depth(document.body);
+}
+</script>
+
+</body>
+</html>
